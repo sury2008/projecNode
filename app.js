@@ -6,9 +6,13 @@ const app=express();
 
 app.use(express.json())
 
-app.use(morgan());
+app.use(express.urlencoded({ extended: true }));
+app.get('/', (req, res) => {
+    res.send('Hello World')
+});
 
 
+app.use('/products', productRouter);
 
 const port = process.env.PORT ?? 4000;
 app.listen(port, () => {
