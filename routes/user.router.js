@@ -1,9 +1,9 @@
-import { Router } from 'express';
-import { validateBody } from '../middlewares/validateJoi.middleware';
-import { registerSchema } from '../validations/user.validation';
+import { Router } from "express";
+import { validateBody } from "../middlewares/validateJoi.middleware.js";
+import { registerSchema,signInSchema,updatePasswordSchema } from "../validations/user.validation.js";
 
 
-const router= Router;
+const router= Router();
 
 router.post('/',validateBody(registerSchema),(req,res) =>{
     res.json({message: 'ההרשמה התקבלה'})

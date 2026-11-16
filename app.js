@@ -1,15 +1,17 @@
 import express from 'express'
 import { connectDB } from './config/db.js';
 import productRouter from './routes/product.router.js';
+import orderRouter from './routes/order.router.js';
+import userRouter from './routes/user.router.js';
 import { printMsg } from './middlewares/custom.middleware.js';
-import { errorHandler } from './middlewares/errors.middleware.js';
+import { errorHandler,pathNotFound } from './middlewares/errors.middleware.js';
 
 const app=express();
 
 connectDB();
 
 
-app.use(express.json())
+app.use(express.json());
 
 
 app.use(express.urlencoded({ extended: true }));
@@ -21,6 +23,10 @@ app.get('/', (req, res) => {
 app.use(printMsg)
 
 app.use('/products', productRouter);
+app.use('/orders', orderRouter);
+app.use('/users', userRouter);
+
+app.use(pathNotFound);
 
 app.use(errorHandler);
 

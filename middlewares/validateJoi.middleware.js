@@ -1,10 +1,12 @@
+import { AppError } from "../utils/AppError.js";
+
 export const validateBody = (schema) => {
    const mdl = (req,res,next) =>{
    const {error,value} = schema.validate(req.body);
 
    if (error){
-    res.status(409).json(error);
-   } else {
+      throw new AppError(error.message, 409, "validation-error");
+      } else {
     req.body = value;
     next();
    }
