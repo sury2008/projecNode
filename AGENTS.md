@@ -20,7 +20,16 @@
 
 ### User (`validations/user.validation.js`)
 
-There is currently no Mongoose model for users; only Joi schemas exist:
+### User (`models/user.model.js`, collection `users`)
+
+| Field      | Type     | Notes                                |
+| ---------- | -------- | ------------------------------------ |
+| `username` | `String` | required, unique                     |
+| `password` | `String` | required; stored as a bcrypt hash    |
+| `address`  | `String` | required                             |
+| `phone`    | `String` | required                             |
+
+Passwords are hashed with `bcryptjs` (10 salt rounds) before saving and are never returned in responses. `utils/generateToken.js` creates a JWT (signed with `JWT_SECRET`, expires in 1h) that is returned on register and login.
 
 * `signInSchema`: `username` (string, required), `password` (string, required).
 * `registerSchema`: `username`, `password`, `repeatPassword` (must equal `password`), `address`, `phone`. All are required strings.
